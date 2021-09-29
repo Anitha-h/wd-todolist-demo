@@ -2,31 +2,29 @@ require "date"
 date = Date.today
 
 class Todo
-  def initialize(a, d, c)
-    @assignment = a
-    @dat = d
-    @com = c
+  def initialize(assignment, date, completed)
+    @assignment = assignment
+    @Date = date
+    @completed = completed
   end
 
   def assignment
     @assignment
   end
 
-  def Dat
-    @dat
+  def Date
+    @Date
   end
 
-  def com
-    @com
+  def completed
+    @completed
   end
 
   def to_displayable_string
-    if ((@dat < Date.today) || (@dat > Date.today))
-
-      return "[ ] #{@assignment} #{@dat}"
-    elsif (@dat == Date.today)
-
-      if (@com == false)
+    if ((@Date < Date.today) || (@Date > Date.today))
+      return "[ ] #{@assignment} #{@Date}"
+    elsif (@Date == Date.today)
+      if (@completed == false)
         return "[ ] #{@assignment}"
       else
         return "[X] #{@assignment}"
@@ -35,27 +33,15 @@ class Todo
   end
 
   def overdue?
-    if (@dat < Date.today)
-      return true
-    else
-      return false
-    end
+    @Date < Date.today
   end
 
   def due_today?
-    if (@dat == Date.today)
-      return true
-    else
-      return false
-    end
+    @Date == Date.today
   end
 
   def due_later?
-    if (@dat > Date.today)
-      return true
-    else
-      return false
-    end
+    @Date > Date.today
   end
 end
 
@@ -81,7 +67,7 @@ class TodosList
   end
 
   def to_displayable_list
-    @todos.map { |num| puts num.to_displayable_string }
+    @todos.map { |num| num.to_displayable_string }
   end
 end
 
