@@ -12,22 +12,20 @@ class Todo
     @assignment
   end
 
-  def Date
-    @date
-  end
+
 
   def completed
     @completed
   end
 
   def due_today?
-    due_date == Date.today
+    date == Date.today
   end
 
   def to_displayable_string
     display_status = completed ? "[X]" : "[ ]"
     display_date = due_today? ? nil : @due_date
-    "#{display_status} #{assignment} #{display_date}"
+    "#{display_status} #{@assignment} #{display_date}"
   end
 
   def overdue?
