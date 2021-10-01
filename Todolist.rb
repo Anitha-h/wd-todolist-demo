@@ -20,18 +20,14 @@ class Todo
     @completed
   end
 
+  def due_today?
+    due_date == Date.today
+  end
+
   def to_displayable_string
-    display_status = "[ ]"
-    text = @assignment
-    display_date = @date
-    if ((@date < Date.today) || (@date > Date.today))
-      return "#{display_status} #{text}  #{display_date}"
-    elsif ((@date == Date.today) && (@completed == false))
-      return "#{display_status} #{text}"
-    else
-      display_status = "[X]"
-      return "#{display_status} #{text}"
-    end
+    display_status = completed ? "[X]" : "[ ]"
+    display_date = due_today? ? nil : @due_date
+    "#{display_status} #{assignment} #{display_date}"
   end
 
   def overdue?
