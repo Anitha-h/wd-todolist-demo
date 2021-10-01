@@ -4,7 +4,7 @@ date = Date.today
 class Todo
   def initialize(assignment, date, completed)
     @assignment = assignment
-    @Date = date
+    @date = date
     @completed = completed
   end
 
@@ -13,7 +13,7 @@ class Todo
   end
 
   def Date
-    @Date
+    @date
   end
 
   def completed
@@ -21,27 +21,29 @@ class Todo
   end
 
   def to_displayable_string
-    if ((@Date < Date.today) || (@Date > Date.today))
-      return "[ ] #{@assignment} #{@Date}"
-    elsif (@Date == Date.today)
-      if (@completed == false)
-        return "[ ] #{@assignment}"
-      else
-        return "[X] #{@assignment}"
-      end
+    display_status = "[ ]"
+    text = @assignment
+    display_date = @date
+    if ((@date < Date.today) || (@date > Date.today))
+      return "#{display_status} #{text}  #{display_date}"
+    elsif ((@date == Date.today) && (@completed == false))
+      return "#{display_status} #{text}"
+    else
+      display_status = "[X]"
+      return "#{display_status} #{text}"
     end
   end
 
   def overdue?
-    @Date < Date.today
+    @date < Date.today
   end
 
   def due_today?
-    @Date == Date.today
+    @date == Date.today
   end
 
   def due_later?
-    @Date > Date.today
+    @date > Date.today
   end
 end
 
