@@ -2,9 +2,9 @@ require "date"
 date = Date.today
 
 class Todo
-  def initialize(assignment, date, completed)
+  def initialize(assignment, datea, completed)
     @assignment = assignment
-    @date = date
+    @datea = datea
     @completed = completed
   end
 
@@ -12,32 +12,47 @@ class Todo
     @assignment
   end
 
-
+  def datea
+    @datea
+  end
 
   def completed
     @completed
   end
 
-  def due_today?
-    date == Date.today
-  end
+  #def due_today?
+  # date == Date.today
+  # end
 
   def to_displayable_string
     display_status = completed ? "[X]" : "[ ]"
-    display_date = due_today? ? nil : @due_date
-    "#{display_status} #{@assignment} #{display_date}"
+    display_date = overdue? || due_later? ? @datea : nil
+
+    return "#{display_status} #{@assignment} #{display_date}"
+
+    #display_status = "[ ]"
+    #text = @assignment
+    # display_date = @date
+    #if ((@date < Date.today) || (@date > Date.today))
+    # return "#{display_status} #{text}  #{display_date}"
+    # elsif ((@date == Date.today) && (@completed == false))
+    # return "#{display_status} #{text}"
+    #else
+    #display_status = "[X]"
+    #return "#{display_status} #{text}"
+    #end
   end
 
   def overdue?
-    @date < Date.today
+    @datea < Date.today
   end
 
   def due_today?
-    @date == Date.today
+    @datea == Date.today
   end
 
   def due_later?
-    @date > Date.today
+    @datea > Date.today
   end
 end
 
