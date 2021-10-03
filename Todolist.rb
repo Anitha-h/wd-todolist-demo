@@ -50,7 +50,7 @@ class TodosList
   end
 
   def to_displayable_list
-    @todos.map { |num| num.to_displayable_string }
+    @todos.map { |todo| todo.to_displayable_string }
   end
 end
 
