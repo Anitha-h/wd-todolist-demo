@@ -2,57 +2,29 @@ require "date"
 date = Date.today
 
 class Todo
-  def initialize(assignment, datea, completed)
-    @assignment = assignment
-    @datea = datea
-    @completed = completed
+  def initialize(assignment, dat, completed)
+    @text = assignment
+    @due_date = dat
+    @completed_status = completed
   end
-
-  def assignment
-    @assignment
-  end
-
-  def datea
-    @datea
-  end
-
-  def completed
-    @completed
-  end
-
-  #def due_today?
-  # date == Date.today
-  # end
 
   def to_displayable_string
-    display_status = completed ? "[X]" : "[ ]"
-    display_date = overdue? || due_later? ? @datea : nil
+    display_status = @completed_status ? "[X]" : "[ ]"
+    display_date = overdue? || due_later? ? @due_date : nil
 
-    return "#{display_status} #{@assignment} #{display_date}"
-
-    #display_status = "[ ]"
-    #text = @assignment
-    # display_date = @date
-    #if ((@date < Date.today) || (@date > Date.today))
-    # return "#{display_status} #{text}  #{display_date}"
-    # elsif ((@date == Date.today) && (@completed == false))
-    # return "#{display_status} #{text}"
-    #else
-    #display_status = "[X]"
-    #return "#{display_status} #{text}"
-    #end
+    "#{display_status} #{@text} #{display_date}"
   end
 
   def overdue?
-    @datea < Date.today
+    @due_date < Date.today
   end
 
   def due_today?
-    @datea == Date.today
+    @due_date == Date.today
   end
 
   def due_later?
-    @datea > Date.today
+    @due_date > Date.today
   end
 end
 
@@ -61,8 +33,8 @@ class TodosList
     @todos = todos
   end
 
-  def add(new_list)
-    @todos.push(new_list)
+  def add(todo)
+    @todos.push(todo)
   end
 
   def overdue
